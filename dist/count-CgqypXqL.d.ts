@@ -1,4 +1,4 @@
-import * as drizzle_orm0 from "drizzle-orm";
+import * as drizzle_orm1 from "drizzle-orm";
 import { BuildRelationalQueryResult, QueryPromise, RelationsFilter, SQL, TableRelationalConfig, TablesRelationalConfig } from "drizzle-orm";
 import { SQLiteDialect, SQLiteSession, SQLiteTable } from "drizzle-orm/sqlite-core";
 
@@ -15,7 +15,7 @@ declare class CountQueryPromise extends QueryPromise<number> {
   private dialect;
   constructor(table: SQLiteTable, filter: SQL | undefined, session: SQLiteSession<any, any>, dialect: SQLiteDialect);
   execute(): Promise<number>;
-  toSQL(): drizzle_orm0.QueryWithTypings;
+  toSQL(): drizzle_orm1.QueryWithTypings;
   getSQL(): SQL<unknown>;
   protected _getQuery(): BuildRelationalQueryResult;
 }

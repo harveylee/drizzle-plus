@@ -1,9 +1,9 @@
-import { RawFieldsToSelection } from "./types-BGX1maf_.js";
+import { RawFieldsToSelection } from "./types-BIurY8o2.js";
 import { ColumnBaseConfig, ColumnDataType, SQL, Subquery } from "drizzle-orm";
-import { RelationalQueryBuilder as RelationalQueryBuilder$1 } from "drizzle-orm/sqlite-core/query-builders/query";
-import { SQLiteColumn } from "drizzle-orm/sqlite-core";
+import { RelationalQueryBuilder as RelationalQueryBuilder$1 } from "drizzle-orm/mysql-core/query-builders/query";
+import { MySqlColumn } from "drizzle-orm/mysql-core";
 
-//#region src/generated/sqlite/types.d.ts
+//#region src/generated/mysql/types.d.ts
 
 /**
  * Infer table columns from a `db.query` factory.
@@ -11,11 +11,11 @@ import { SQLiteColumn } from "drizzle-orm/sqlite-core";
  * @example
  * ```ts
  * type FooColumns = InferColumns<typeof db.query.foo>
- * //   ^? type { id: SQLiteColumn; name: SQLiteColumn }
+ * //   ^? type { id: MySqlColumn; name: MySqlColumn }
  * ```
  */
 type InferColumns<T extends RelationalQueryBuilder$1<any, any, any>> = T extends RelationalQueryBuilder$1<any, any, infer TFields> ? TFields['columns'] : never;
-type RawFieldsToColumnsSelection<T extends Record<string, unknown>> = RawFieldsToSelection<T> extends infer TSelection ? { [K in keyof TSelection]: TSelection[K] extends infer TExpression ? TExpression | (TExpression extends SQL.Aliased<infer TData> ? SQLiteColumn<ColumnBaseConfig<ColumnDataType, string> & {
+type RawFieldsToColumnsSelection<T extends Record<string, unknown>> = RawFieldsToSelection<T> extends infer TSelection ? { [K in keyof TSelection]: TSelection[K] extends infer TExpression ? TExpression | (TExpression extends SQL.Aliased<infer TData> ? MySqlColumn<ColumnBaseConfig<ColumnDataType, string> & {
   data: Exclude<TData, null>;
   notNull: TData | null extends TData ? false : true;
 }> : never) : never } : never;
@@ -23,10 +23,23 @@ type RawFieldsToSubquery<T extends Record<string, unknown>, TAlias extends strin
 type InferCastResult<T extends SQLType | (string & {})> = SQLType extends T ? unknown : T extends SQLType ? SQLTypeToJS[T] : unknown;
 type SQLType = string & keyof SQLTypeToJS;
 interface SQLTypeToJS {
-  integer: number;
+  tinyint: number;
+  smallint: number;
+  mediumint: number;
+  int: number;
+  bigint: number;
+  float: number;
+  double: number;
+  decimal: number;
   real: number;
+  boolean: boolean;
+  char: string;
+  varchar: string;
   text: string;
-  blob: any;
+  date: string;
+  time: string;
+  datetime: string;
+  json: any;
 }
 //#endregion
 export { InferCastResult, InferColumns, RawFieldsToSubquery, type RelationalQueryBuilder$1 as RelationalQueryBuilder, SQLType, SQLTypeToJS };

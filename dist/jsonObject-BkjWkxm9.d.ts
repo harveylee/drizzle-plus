@@ -1,4 +1,4 @@
-import { AnySelectQuery, ToJsonObject } from "./types-BGX1maf_.js";
+import { AnySelectQuery, ToJsonObject } from "./types-BIurY8o2.js";
 
 //#region src/generated/mysql/jsonObject.d.ts
 

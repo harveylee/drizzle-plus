@@ -1,5 +1,5 @@
+import { buildJsonProperties, createJsonObjectDecoder } from "./utils-Brc9vC7H.js";
 import { sql } from "drizzle-orm";
-import { buildJsonProperties, createJsonObjectDecoder } from "drizzle-plus/utils";
 
 //#region src/generated/mysql/jsonObject.ts
 /**

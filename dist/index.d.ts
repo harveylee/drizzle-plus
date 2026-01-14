@@ -1,6 +1,6 @@
-import "./json-yDXowxm9.js";
-import { AnyDBQueryConfig, AnyQuery, InferSQLNull, QueryToSQL, RawFieldsToSelection, SQLExpression, SQLResult, SQLValue } from "./types-BGX1maf_.js";
-import * as drizzle_orm9 from "drizzle-orm";
+import "./json-ZhdFcNhs.js";
+import { AnyDBQueryConfig, AnyQuery, InferSQLNull, QueryToSQL, RawFieldsToSelection, SQLExpression, SQLResult, SQLValue } from "./types-BIurY8o2.js";
+import * as drizzle_orm2 from "drizzle-orm";
 import { SQL, SQLWrapper } from "drizzle-orm";
 import { Simplify } from "radashi";
 
@@ -112,13 +112,13 @@ declare function toSQL<T>(value: T): ToSQL<T>;
 /**
  * Returns the absolute value of a number.
  */
-declare function abs<T extends SQLExpression<number | null>>(value: T): drizzle_orm9.SQL<SQLResult<T>>;
+declare function abs<T extends SQLExpression<number | null>>(value: T): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/ceil.d.ts
 /**
  * Returns the smallest integer greater than or equal to a number.
  */
-declare function ceil<T extends SQLExpression<number | null>>(value: T): drizzle_orm9.SQL<SQLResult<T>>;
+declare function ceil<T extends SQLExpression<number | null>>(value: T): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/coalesce.d.ts
 /**
@@ -194,13 +194,13 @@ declare function currentTimestamp(): SQLTimestamp<string>;
 /**
  * Returns the largest integer less than or equal to a number.
  */
-declare function floor<T extends SQLExpression<number | null>>(value: T): drizzle_orm9.SQL<SQLResult<T>>;
+declare function floor<T extends SQLExpression<number | null>>(value: T): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/length.d.ts
 /**
  * Returns the length of a string.
  */
-declare function length<T extends SQLExpression<string | null>>(value: T): drizzle_orm9.SQL<number | InferSQLNull<T>>;
+declare function length<T extends SQLExpression<string | null>>(value: T): drizzle_orm2.SQL<number | InferSQLNull<T>>;
 //#endregion
 //#region src/functions/lower.d.ts
 type LowercaseOrNull<T extends string | null> = T extends string ? Lowercase<T> : null;
@@ -220,7 +220,7 @@ declare function mod<TDividend extends SQLValue<number | null>, TDivisor extends
  * Returns `NULL` if two expressions are equal, otherwise returns the first
  * expression.
  */
-declare function nullif<T extends SQLValue<unknown>>(expression1: T, expression2: unknown): drizzle_orm9.SQL<SQLResult<T>>;
+declare function nullif<T extends SQLValue<unknown>>(expression1: T, expression2: unknown): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/power.d.ts
 /**
@@ -239,7 +239,7 @@ declare function round<TValue extends SQLValue<number | null>, TDecimals extends
 /**
  * Returns the square root of a number.
  */
-declare function sqrt<T extends SQLExpression<number | null>>(value: T): drizzle_orm9.SQL<SQLResult<T>>;
+declare function sqrt<T extends SQLExpression<number | null>>(value: T): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/substring.d.ts
 /**
@@ -252,7 +252,7 @@ declare function substring<TInput extends SQLValue<string | null>, TPosition ext
 /**
  * Removes leading and trailing spaces from a string.
  */
-declare function trim<T extends SQLExpression<string | null>>(value: T): drizzle_orm9.SQL<SQLResult<T>>;
+declare function trim<T extends SQLExpression<string | null>>(value: T): drizzle_orm2.SQL<SQLResult<T>>;
 //#endregion
 //#region src/functions/upper.d.ts
 type UppercaseOrNull<T extends string | null> = T extends string ? Uppercase<T> : null;

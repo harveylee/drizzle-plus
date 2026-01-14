@@ -1,6 +1,6 @@
+import { orderSelectedFields } from "../../utils-Brc9vC7H.js";
 import { DrizzleError, sql } from "drizzle-orm";
 import { TypedQueryBuilder } from "drizzle-orm/query-builders/query-builder";
-import { orderSelectedFields } from "drizzle-plus/utils";
 import { MySqlSelectBase, MySqlSelectBuilder } from "drizzle-orm/mysql-core";
 
 //#region src/generated/mysql/withoutFrom.ts

@@ -1,8 +1,8 @@
-import "../../json-yDXowxm9.js";
-import { RawFieldsToSelection } from "../../types-BGX1maf_.js";
+import "../../json-ZhdFcNhs.js";
+import { RawFieldsToSelection } from "../../types-BIurY8o2.js";
 import { AnyRelations, SQL, Subquery, TablesRelationalConfig } from "drizzle-orm";
 import { SQLWrapper as SQLWrapper$1 } from "drizzle-orm/sql";
-import * as drizzle_orm_pg_core0 from "drizzle-orm/pg-core";
+import * as drizzle_orm_pg_core1 from "drizzle-orm/pg-core";
 import { PgColumn, PgTable, TableConfig, WithSubqueryWithSelection } from "drizzle-orm/pg-core";
 import * as V1 from "drizzle-orm/_relations";
 
@@ -51,7 +51,7 @@ type PgTableWithTheseColumns<K extends string> = PgTable<Omit<TableConfig, 'colu
   columns: Record<K, PgColumn>;
 }>;
 declare module 'drizzle-orm/pg-core' {
-  interface PgDatabase<TQueryResult extends drizzle_orm_pg_core0.PgQueryResultHKT, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
+  interface PgDatabase<TQueryResult extends drizzle_orm_pg_core1.PgQueryResultHKT, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
     /**
      * Allows you to declare a values list as raw SQL or a subquery. Use the
      * `getSQL` method to get the raw SQL. Use the `as` method to get a

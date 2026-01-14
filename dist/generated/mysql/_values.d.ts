@@ -1,8 +1,8 @@
-import "../../json-yDXowxm9.js";
-import { RawFieldsToSelection } from "../../types-BGX1maf_.js";
+import "../../json-ZhdFcNhs.js";
+import { RawFieldsToSelection } from "../../types-BIurY8o2.js";
 import { AnyRelations, SQL, Subquery, TablesRelationalConfig } from "drizzle-orm";
 import { SQLWrapper as SQLWrapper$1 } from "drizzle-orm/sql";
-import * as drizzle_orm_mysql_core7 from "drizzle-orm/mysql-core";
+import * as drizzle_orm_mysql_core4 from "drizzle-orm/mysql-core";
 import { MySqlColumn, MySqlTable, PreparedQueryHKTBase, TableConfig, WithSubqueryWithSelection } from "drizzle-orm/mysql-core";
 import * as V1 from "drizzle-orm/_relations";
 
@@ -33,7 +33,7 @@ type MySqlTableWithTheseColumns<K extends string> = MySqlTable<Omit<TableConfig,
   columns: Record<K, MySqlColumn>;
 }>;
 declare module 'drizzle-orm/mysql-core' {
-  interface MySqlDatabase<TQueryResult extends drizzle_orm_mysql_core7.MySqlQueryResultHKT, TPreparedQueryHKT extends PreparedQueryHKTBase, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
+  interface MySqlDatabase<TQueryResult extends drizzle_orm_mysql_core4.MySqlQueryResultHKT, TPreparedQueryHKT extends PreparedQueryHKTBase, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
     /**
      * Allows you to declare a values list as raw SQL or a subquery. Use the
      * `getSQL` method to get the raw SQL. Use the `as` method to get a

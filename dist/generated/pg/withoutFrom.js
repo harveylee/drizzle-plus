@@ -1,6 +1,6 @@
+import { orderSelectedFields } from "../../utils-Brc9vC7H.js";
 import { DrizzleError, sql } from "drizzle-orm";
 import { TypedQueryBuilder } from "drizzle-orm/query-builders/query-builder";
-import { orderSelectedFields } from "drizzle-plus/utils";
 import { PgSelectBase, PgSelectBuilder } from "drizzle-orm/pg-core";
 
 //#region src/generated/pg/withoutFrom.ts

@@ -1,1 +1,1 @@
-import "../../types-H-TSmRpm.js";
+import "../../types-Cv8NMtbo.js";

@@ -1,11 +1,11 @@
 import { BuildQueryResult, DBQueryConfig, KnownKeysOnly, TableRelationalConfig, TablesRelationalConfig } from "drizzle-orm";
-import * as drizzle_orm_mysql_core4 from "drizzle-orm/mysql-core";
+import * as drizzle_orm_mysql_core8 from "drizzle-orm/mysql-core";
 
 //#region src/generated/mysql/findUnique.d.ts
 type RequireKeys<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 type FindUniqueConfig<TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> = RequireKeys<DBQueryConfig<'one', TSchema, TFields>, 'where'>;
 declare module 'drizzle-orm/mysql-core/query-builders/query' {
-  interface RelationalQueryBuilder<TPreparedQueryHKT extends drizzle_orm_mysql_core4.PreparedQueryHKTBase, TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> {
+  interface RelationalQueryBuilder<TPreparedQueryHKT extends drizzle_orm_mysql_core8.PreparedQueryHKTBase, TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> {
     /**
      * Find a unique record by its primary key or unique constraint.
      *

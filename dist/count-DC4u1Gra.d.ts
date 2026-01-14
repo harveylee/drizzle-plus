@@ -1,4 +1,4 @@
-import * as drizzle_orm1 from "drizzle-orm";
+import * as drizzle_orm0 from "drizzle-orm";
 import { BuildRelationalQueryResult, QueryPromise, RelationsFilter, SQL, TableRelationalConfig, TablesRelationalConfig } from "drizzle-orm";
 import * as drizzle_orm_mysql_core5 from "drizzle-orm/mysql-core";
 import { MySqlDialect, MySqlSession, MySqlTable } from "drizzle-orm/mysql-core";
@@ -16,7 +16,7 @@ declare class CountQueryPromise extends QueryPromise<number> {
   private dialect;
   constructor(table: MySqlTable, filter: SQL | undefined, session: MySqlSession, dialect: MySqlDialect);
   execute(): Promise<number>;
-  toSQL(): drizzle_orm1.QueryWithTypings;
+  toSQL(): drizzle_orm0.QueryWithTypings;
   getSQL(): SQL<unknown>;
   protected _getQuery(): BuildRelationalQueryResult;
 }

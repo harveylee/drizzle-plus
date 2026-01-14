@@ -1,11 +1,11 @@
-import * as drizzle_orm_pg_core1 from "drizzle-orm/pg-core";
+import * as drizzle_orm_pg_core0 from "drizzle-orm/pg-core";
 import { WithBuilder } from "drizzle-orm/pg-core";
 import * as V1 from "drizzle-orm/_relations";
 import { AnyRelations, TablesRelationalConfig } from "drizzle-orm/relations";
 
 //#region src/generated/pg/$withMaterialized.d.ts
 declare module 'drizzle-orm/pg-core' {
-  interface PgDatabase<TQueryResult extends drizzle_orm_pg_core1.PgQueryResultHKT, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
+  interface PgDatabase<TQueryResult extends drizzle_orm_pg_core0.PgQueryResultHKT, TFullSchema extends Record<string, unknown>, TRelations extends AnyRelations, TTablesConfig extends TablesRelationalConfig, TSchema extends V1.TablesRelationalConfig> {
     /**
      * Similar to `$with()` but the CTE is materialized.
      *

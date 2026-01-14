@@ -1,8 +1,8 @@
-import "../../json-yDXowxm9.js";
-import { AnyRelationsFilter, ExtractTable, OrderByClause, ReturningClause, ReturningResultFields } from "../../types-BGX1maf_.js";
-import "../../types-Cvre74mP.js";
+import "../../json-ZhdFcNhs.js";
+import { AnyRelationsFilter, ExtractTable, OrderByClause, ReturningClause, ReturningResultFields } from "../../types-BIurY8o2.js";
+import "../../types-CwaUpWt5.js";
 import { BuildRelationalQueryResult, Column, Query, QueryPromise, RelationsFilter, SQL, Subquery, Table, TableRelationalConfig, TablesRelationalConfig, WithSubquery } from "drizzle-orm";
-import * as drizzle_orm_mysql_core0 from "drizzle-orm/mysql-core";
+import * as drizzle_orm_mysql_core7 from "drizzle-orm/mysql-core";
 import { MySqlColumn, MySqlDialect, MySqlSession, MySqlTable, MySqlUpdateSetSource, SelectedFields } from "drizzle-orm/mysql-core";
 import { CasingCache } from "drizzle-orm/casing";
 
@@ -35,7 +35,7 @@ interface DBUpdateManyConfig<TTable extends MySqlTable, TReturning extends Retur
   returning?: ExcludeDialect<TTable, 'mysql', TReturning | ((table: TTable['_']['columns']) => TReturning) | undefined>;
 }
 declare module 'drizzle-orm/mysql-core/query-builders/query' {
-  interface RelationalQueryBuilder<TPreparedQueryHKT extends drizzle_orm_mysql_core0.PreparedQueryHKTBase, TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> {
+  interface RelationalQueryBuilder<TPreparedQueryHKT extends drizzle_orm_mysql_core7.PreparedQueryHKTBase, TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> {
     updateMany<TReturning extends ReturningClause<ExtractTable<TFields>> = {}>(config: DBUpdateManyConfig<ExtractTable<TFields, MySqlTable>, TReturning, RelationsFilter<TFields, TSchema>>): UpdateManyQueryPromise<ExtractTable<TFields, MySqlTable>, TReturning>;
   }
 }

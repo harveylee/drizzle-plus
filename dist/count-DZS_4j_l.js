@@ -1,8 +1,8 @@
-import { getContext, getFilterSQL } from "./internal-CfVT0bfO.js";
+import { getContext, getFilterSQL } from "./internal-uJGafNeM.js";
 import { QueryPromise, aliasedTable, getTableAsAliasSQL, sql } from "drizzle-orm";
-import { RelationalQueryBuilder } from "drizzle-orm/pg-core/query-builders/query";
+import { RelationalQueryBuilder } from "drizzle-orm/mysql-core/query-builders/query";
 
-//#region src/generated/pg/count.ts
+//#region src/generated/mysql/count.ts
 RelationalQueryBuilder.prototype.count = function(filter) {
 	const origTable = getContext(this).table;
 	const aliased = Object.assign({}, this, { table: aliasedTable(origTable, "dp0") });
