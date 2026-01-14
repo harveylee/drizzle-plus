@@ -1,3 +1,4 @@
+import { pushStringChunk } from '#utils'
 import {
   BuildRelationalQueryResult,
   Column,
@@ -26,7 +27,6 @@ import {
 } from 'drizzle-orm/pg-core'
 import { SelectionProxyHandler } from 'drizzle-orm/selection-proxy'
 import { DecodedFields } from 'drizzle-plus/types'
-import { pushStringChunk } from 'drizzle-plus/utils'
 import { isFunction, select } from 'radashi'
 import { RelationalQuery } from './adapters/pg'
 import { RelationalQueryBuilder } from './types'

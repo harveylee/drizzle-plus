@@ -1,4 +1,8 @@
 // mysql-insert: import type { PreparedQueryHKTBase } from 'drizzle-orm/mysql-core'
+import {
+  mapSelectedFieldsToDecoders,
+  orderSelectedFields,
+} from '#utils'
 import { mapRelationalRow, sql, SQL } from 'drizzle-orm'
 import {
   PgColumn,
@@ -9,10 +13,6 @@ import {
 } from 'drizzle-orm/pg-core'
 import { PgRelationalQuery } from 'drizzle-orm/pg-core/query-builders/query'
 import { DecodedFields, ResultFieldsToSelection } from 'drizzle-plus/types'
-import {
-  mapSelectedFieldsToDecoders,
-  orderSelectedFields,
-} from 'drizzle-plus/utils'
 import { buildRelationalQuery, createWithSubquery } from './internal'
 
 export type PgRelationalSubquery<

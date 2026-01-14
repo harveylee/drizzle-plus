@@ -1,7 +1,7 @@
+import { createJsonArrayDecoder, getDecoder } from '#utils'
 import { SQL, sql } from 'drizzle-orm'
 import { coalesce } from 'drizzle-plus'
 import type { SQLExpression, SQLResult } from 'drizzle-plus/types'
-import { createJsonArrayDecoder, getDecoder } from 'drizzle-plus/utils'
 
 export type JsonAggOptions = {
   orderBy?: SQLExpression

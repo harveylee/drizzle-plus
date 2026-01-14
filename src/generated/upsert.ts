@@ -1,4 +1,11 @@
 import {
+  getDefinedColumns,
+  getSelectedFields,
+  getSQL,
+  mapSelectedFieldsToDecoders,
+  orderSelectedFields,
+} from '#utils'
+import {
   getTableColumns,
   Query,
   QueryPromise,
@@ -30,13 +37,6 @@ import {
   ReturningClause,
   ReturningResultFields,
 } from 'drizzle-plus/types'
-import {
-  getDefinedColumns,
-  getSelectedFields,
-  getSQL,
-  mapSelectedFieldsToDecoders,
-  orderSelectedFields,
-} from 'drizzle-plus/utils'
 import { isFunction, select } from 'radashi'
 import * as adapter from './adapters/pg'
 import {
@@ -57,8 +57,8 @@ export type PgUpsertSelectQuery<TTable extends Table> =
   | PgInsertSelectQueryBuilder<TTable>
   | Subquery<string, PgInsertValue<TTable>>
   | adapter.RelationalQuery<
-      PgInsertValue<TTable> | PgInsertValue<TTable>[] | undefined
-    >
+    PgInsertValue<TTable> | PgInsertValue<TTable>[] | undefined
+  >
 
 type DBUpsertUpdateFn<TTable extends Table> = (tables: {
   current: TTable['_']['columns']
@@ -80,8 +80,8 @@ export interface DBUpsertConfig<
    * function that returns one.
    */
   data: TMode extends 'one'
-    ? PgInsertValue<TTable>
-    : readonly PgInsertValue<TTable>[] | PgUpsertSelectQuery<TTable>
+  ? PgInsertValue<TTable>
+  : readonly PgInsertValue<TTable>[] | PgUpsertSelectQuery<TTable>
   /**
    * Explicitly specify the columns to target for the `ON CONFLICT DO UPDATE`
    * clause.
@@ -114,9 +114,9 @@ export interface DBUpsertConfig<
    * If left undefined, the query returns all columns of the updated row.
    */
   returning?:
-    | TReturning
-    | ((table: TTable['_']['columns']) => TReturning)
-    | undefined
+  | TReturning
+  | ((table: TTable['_']['columns']) => TReturning)
+  | undefined
 }
 
 declare module 'drizzle-orm/pg-core/query-builders/query' {
@@ -226,13 +226,13 @@ RelationalQueryBuilder.prototype.upsert = function (config: {
   const updatedEntries = update
     ? Object.entries(update).filter(([_, value]) => value !== undefined)
     : select(Object.keys(updateCandidates), key => {
-        const column = columns[key]
-        if (target.includes(column)) {
-          return null
-        }
-        const name = dialect.casing.getColumnCasing(column)
-        return [key, excluded(name)]
-      })
+      const column = columns[key]
+      if (target.includes(column)) {
+        return null
+      }
+      const name = dialect.casing.getColumnCasing(column)
+      return [key, excluded(name)]
+    })
 
   const returning = config.returning
     ? getReturningFields(config.returning, columns)

@@ -1,9 +1,9 @@
-import { sql, type DriverValueDecoder } from 'drizzle-orm'
-import type { AnySelectQuery, ToJsonObject } from 'drizzle-plus/types'
 import {
   buildJsonProperties,
   createJsonObjectDecoder,
-} from 'drizzle-plus/utils'
+} from '#utils'
+import { sql, type DriverValueDecoder } from 'drizzle-orm'
+import type { AnySelectQuery, ToJsonObject } from 'drizzle-plus/types'
 
 /**
  * Build a JSON object from the selected fields of a given subquery. You may

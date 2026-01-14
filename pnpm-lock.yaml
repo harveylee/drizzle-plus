@@ -34,9 +34,6 @@ importers:
       drizzle-orm:
         specifier: beta
         version: 1.0.0-beta.1-f654053(patch_hash=2d16276aaca83f4527accdf318385573a33f6c65a277314da3ec99dab205a053)(@libsql/client@0.15.9)
-      drizzle-plus:
-        specifier: 'link:'
-        version: 'link:'
       picorun:
         specifier: ^0.1.5
         version: 0.1.5

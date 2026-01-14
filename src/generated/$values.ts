@@ -1,4 +1,5 @@
 // mysql-insert: import type { PreparedQueryHKTBase } from 'drizzle-orm/mysql-core'
+import { pushStringChunk } from '#utils'
 import {
   AnyRelations,
   DrizzleError,
@@ -20,7 +21,6 @@ import {
 import { noopDecoder, sql, SQLWrapper } from 'drizzle-orm/sql'
 import type { SQLType } from 'drizzle-plus/pg'
 import { DecodedFields, RawFieldsToSelection } from 'drizzle-plus/types'
-import { pushStringChunk } from 'drizzle-plus/utils'
 import { createWithSubquery, setWithSubqueryAddons } from './internal'
 
 type PgTableWithTheseColumns<K extends string> = PgTable<
@@ -125,14 +125,13 @@ export type ValuesListSubquery<
   TValues extends Record<string, unknown>,
 > =
   RawFieldsToSelection<TValues> extends infer TSelectedFields
-    ? Subquery<TAlias, TSelectedFields & Record<string, unknown>> &
-        TSelectedFields
-    : never
+  ? Subquery<TAlias, TSelectedFields & Record<string, unknown>> &
+  TSelectedFields
+  : never
 
 export class ValuesList<
   TValues extends Record<string, unknown> = Record<string, unknown>,
-> implements SQLWrapper<unknown>
-{
+> implements SQLWrapper<unknown> {
   declare _: {
     selectedFields: RawFieldsToSelection<TValues>
   }

@@ -1,4 +1,5 @@
 // mysql-insert: import type { PreparedQueryHKTBase } from 'drizzle-orm/mysql-core'
+import { orderSelectedFields } from '#utils'
 import {
   ColumnsSelection,
   DrizzleError,
@@ -21,7 +22,6 @@ import {
 } from 'drizzle-orm/pg-core'
 import { TypedQueryBuilder } from 'drizzle-orm/query-builders/query-builder'
 import { SelectResultFields } from 'drizzle-orm/query-builders/select.types'
-import { orderSelectedFields } from 'drizzle-plus/utils'
 
 declare module 'drizzle-orm/pg-core' {
   interface PgSelectBuilder<
@@ -46,8 +46,7 @@ type PgSelectBuilderPrivate = {
 
 export class PgSelectWithoutFrom<TSelection extends SelectedFields>
   extends TypedQueryBuilder<TSelection, SelectResultFields<TSelection>[]>
-  implements PgSetOperatorWithResult<SelectResultFields<TSelection>[]>
-{
+  implements PgSetOperatorWithResult<SelectResultFields<TSelection>[]> {
   _: {
     readonly hkt: any
     readonly tableName: any

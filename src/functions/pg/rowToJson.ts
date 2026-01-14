@@ -1,4 +1,9 @@
 import {
+  getDecoder,
+  mapSelectedFieldsToDecoders,
+  orderSelectedFields,
+} from '#utils'
+import {
   DriverValueDecoder,
   DrizzleError,
   getTableColumns,
@@ -13,11 +18,6 @@ import {
 import { PgTable } from 'drizzle-orm/pg-core'
 import { PgViewBase } from 'drizzle-orm/pg-core/view-base'
 import type { RowToJson } from 'drizzle-plus/types'
-import {
-  getDecoder,
-  mapSelectedFieldsToDecoders,
-  orderSelectedFields,
-} from 'drizzle-plus/utils'
 
 /**
  * Convert a single row to a JSON object using PostgreSQL's `row_to_json`

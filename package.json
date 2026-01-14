@@ -25,7 +25,6 @@
     "dotenv": "^17.2.3",
     "drizzle-kit": "beta",
     "drizzle-orm": "beta",
-    "drizzle-plus": "link:",
     "picorun": "^0.1.5",
     "picospawn": "^0.3.2",
     "prettier": "^3.6.2",
@@ -48,6 +47,9 @@
     "dist",
     "!**/*.map"
   ],
+  "imports": {
+    "#utils": "./src/utils.ts"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

@@ -1,4 +1,8 @@
 // mysql-insert: import type { PreparedQueryHKTBase } from 'drizzle-orm/mysql-core'
+import {
+  mapSelectedFieldsToDecoders,
+  orderSelectedFields,
+} from '#utils'
 import { ColumnsSelection, Name, SQL, StringChunk, Subquery } from 'drizzle-orm'
 import type * as V1 from 'drizzle-orm/_relations'
 import {
@@ -10,10 +14,6 @@ import {
 import { TypedQueryBuilder } from 'drizzle-orm/query-builders/query-builder'
 import { AnyRelations, TablesRelationalConfig } from 'drizzle-orm/relations'
 import type { DecodedFields } from 'drizzle-plus/types'
-import {
-  mapSelectedFieldsToDecoders,
-  orderSelectedFields,
-} from 'drizzle-plus/utils'
 import { setWithSubqueryAddons } from './internal'
 
 declare module 'drizzle-orm/pg-core' {
