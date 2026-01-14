@@ -1,3 +1,4 @@
+import { gt } from 'drizzle-orm'
 import 'drizzle-plus/sqlite/findManyAndCount'
 import { db } from './config/client'
 import { user } from './config/schema'
@@ -13,14 +14,15 @@ describe('findManyAndCount', () => {
     ])
   })
 
-  test('SQL output', () => {
+  test('SQL output', async () => {
+    const expectedCount = await db.$count(user)
     const query = db.query.user.findManyAndCount()
 
     expect(query.toSQL()).toMatchInlineSnapshot(`
       {
         "count": {
           "params": [],
-          "sql": "select count(*) AS "count" from "user"",
+          "sql": "select count(*) AS "count" from "user" as "dp0"",
         },
         "findMany": {
           "params": [],
@@ -29,6 +31,9 @@ describe('findManyAndCount', () => {
       }
     `)
 
+    expect(await query.then(d => d.count)).toBe(expectedCount)
+
+    const expectedCount2 = await db.$count(user, gt(user.id, 100))
     const query2 = db.query.user.findManyAndCount({
       where: {
         id: { gt: 100 },
@@ -41,7 +46,7 @@ describe('findManyAndCount', () => {
           "params": [
             100,
           ],
-          "sql": "select count(*) AS "count" from "user" where "user"."id" > ?",
+          "sql": "select count(*) AS "count" from "user" as "dp0" where "dp0"."id" > ?",
           "typings": [
             "none",
           ],
@@ -57,6 +62,8 @@ describe('findManyAndCount', () => {
         },
       }
     `)
+
+    expect(await query2.then(d => d.count)).toBe(expectedCount2)
   })
 
   test('returns data and count without filters', async () => {
