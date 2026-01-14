@@ -1,0 +1,63 @@
+import { RawFieldsToSelection } from "./types-BGX1maf_.js";
+import { ColumnBaseConfig, ColumnDataType, SQL, Subquery } from "drizzle-orm";
+import { PgColumn } from "drizzle-orm/pg-core";
+import { RelationalQueryBuilder as RelationalQueryBuilder$1 } from "drizzle-orm/pg-core/query-builders/query";
+
+//#region src/generated/pg/types.d.ts
+
+/**
+ * Infer table columns from a `db.query` factory.
+ *
+ * @example
+ * ```ts
+ * type FooColumns = InferColumns<typeof db.query.foo>
+ * //   ^? type { id: PgColumn; name: PgColumn }
+ * ```
+ */
+type InferColumns<T extends RelationalQueryBuilder$1<any, any>> = T extends RelationalQueryBuilder$1<any, infer TFields> ? TFields['columns'] : never;
+type RawFieldsToColumnsSelection<T extends Record<string, unknown>> = RawFieldsToSelection<T> extends infer TSelection ? { [K in keyof TSelection]: TSelection[K] extends infer TExpression ? TExpression | (TExpression extends SQL.Aliased<infer TData> ? PgColumn<ColumnBaseConfig<ColumnDataType, string> & {
+  data: Exclude<TData, null>;
+  notNull: TData | null extends TData ? false : true;
+}> : never) : never } : never;
+type RawFieldsToSubquery<T extends Record<string, unknown>, TAlias extends string = string> = RawFieldsToColumnsSelection<T> extends infer TSelection ? Subquery<TAlias, TSelection & Record<string, unknown>> & TSelection : never;
+type InferCastResult<T extends SQLType | (string & {})> = SQLType extends T ? unknown : T extends SQLType ? SQLTypeToJS[T] : unknown;
+type SQLType = string & keyof SQLTypeToJS;
+interface SQLTypeToJS {
+  int2: number;
+  int4: number;
+  int8: number;
+  smallint: number;
+  integer: number;
+  bigint: number;
+  decimal: number;
+  numeric: number;
+  real: number;
+  float4: number;
+  float8: number;
+  double: number;
+  serial: number;
+  bigserial: number;
+  money: number;
+  bool: boolean;
+  char: string;
+  varchar: string;
+  text: string;
+  citext: string;
+  name: string;
+  date: string;
+  time: string;
+  timetz: string;
+  timestamp: any;
+  timestamptz: any;
+  interval: string;
+  uuid: string;
+  json: any;
+  jsonb: any;
+  inet: string;
+  cidr: string;
+  macaddr: string;
+  bit: string;
+  varbit: string;
+}
+//#endregion
+export { InferCastResult, InferColumns, RawFieldsToSubquery, type RelationalQueryBuilder$1 as RelationalQueryBuilder, SQLType, SQLTypeToJS };

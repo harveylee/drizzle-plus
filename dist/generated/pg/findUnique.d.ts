@@ -1,0 +1,23 @@
+import { BuildQueryResult, DBQueryConfig, KnownKeysOnly, TableRelationalConfig, TablesRelationalConfig } from "drizzle-orm";
+
+//#region src/generated/pg/findUnique.d.ts
+type RequireKeys<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+type FindUniqueConfig<TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> = RequireKeys<DBQueryConfig<'one', TSchema, TFields>, 'where'>;
+declare module 'drizzle-orm/pg-core/query-builders/query' {
+  interface RelationalQueryBuilder<TSchema extends TablesRelationalConfig, TFields extends TableRelationalConfig> {
+    /**
+     * Find a unique record by its primary key or unique constraint.
+     *
+     * You **MUST** define keys in the `where` option matching a primary key or
+     * at least one unique constraint. These keys *cannot* be nested in
+     * conditions like `OR` or `AND`, nor can they use the `RAW` escape hatch.
+     *
+     * **Note:** The current state of Drizzle's typings has no type-level
+     * tracking of *composite* primary keys or *composite* unique constraints.
+     * That means all we can do is throw at runtime (no compile-time warnings).
+     */
+    findUnique<TConfig extends FindUniqueConfig<TSchema, TFields>>(config: KnownKeysOnly<TConfig, FindUniqueConfig<TSchema, TFields>>): PgRelationalQuery<BuildQueryResult<TSchema, TFields, TConfig> | undefined>;
+  }
+}
+//#endregion
+export { FindUniqueConfig };

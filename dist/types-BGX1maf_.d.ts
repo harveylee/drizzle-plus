@@ -1,0 +1,206 @@
+import { JSONObjectCodable } from "./json-yDXowxm9.js";
+import { AnyColumn, Column, DriverValueDecoder, DrizzleTypeError, OrderByOperators, Placeholder, QueryPromise, QueryWithTypings, RelationsFieldFilter, SQL, SQLOperator, SQLWrapper, Subquery, Table, ValueOrArray, View } from "drizzle-orm";
+import { SelectResultFields } from "drizzle-orm/query-builders/select.types";
+import { CasingCache } from "drizzle-orm/casing";
+
+//#region src/types.d.ts
+type SQLValue<T> = T | SQLExpression<T>;
+type SQLExpression<T = unknown> = SQLWrapper<T> | AnyColumn<{
+  data: Exclude<T, null>;
+  notNull: [null] extends [T] ? boolean : true;
+  driverParam: any;
+}>;
+/**
+ * The result type of a SQL expression.
+ */
+type SQLResult<T> = T extends any ? T extends AnyColumn<{
+  data: infer TData;
+  notNull: infer TNotNull extends boolean;
+}> ? TData | (TNotNull extends true ? never : null) : T extends SQLWrapper<infer TData> ? TData : T : never;
+type InferSQLNull<T> = Extract<SQLResult<T>, null>;
+type AnyQuery = AnySelectQuery | QueryPromise<any>;
+interface AnySelectQuery {
+  _: {
+    selectedFields: Record<string, unknown>;
+    alias?: string;
+  };
+  getSQL(): SQL;
+}
+type UndefinedToNull<T> = T extends undefined ? null : T;
+type QueryToResultOptions = {
+  /**
+   * If true, the resulting type will never be an array.
+   */
+  single?: boolean;
+  /**
+   * If true, the resulting type will be the first column of the query's row
+   * type. This is used by the `nest()` function.
+   */
+  scalar?: boolean;
+  /**
+   * Prevent `null` from being added to the resulting type.
+   *
+   * This option is only used when `single: true` or `scalar: true` is also
+   * used.
+   */
+  notNull?: boolean;
+};
+type QueryToResult<T extends AnyQuery, TOptions extends QueryToResultOptions = {}> = (T extends QueryPromise<infer TResult> ? TResult : SelectResultFields<Extract<T, AnySelectQuery>['_']['selectedFields']>) extends infer TResult ? UndefinedToNull<TOptions extends {
+  single: true;
+} | {
+  scalar: true;
+} ? TResult extends readonly (infer TElement)[] ? (TOptions extends {
+  scalar: true;
+} ? TElement extends object ? TElement[keyof TElement] : TElement : TElement) | (TOptions extends {
+  notNull: true;
+} ? never : null) : TOptions extends {
+  scalar: true;
+} ? TResult extends object ? TResult[keyof TResult] : TResult : TResult : TResult> : never;
+type QueryToSQL<T extends AnyQuery, TOptions extends QueryToResultOptions = {}> = QueryToResult<T, TOptions> extends infer TResult ? SQL<TResult> : never;
+interface AnyRelationsFilter {
+  [key: string]: boolean | RelationsFieldFilter<unknown> | undefined | AnyRelationsFilter | AnyRelationsFilter[] | SQLWrapper | ((table: any, operators: any) => SQL);
+}
+/**
+ * A bug-free version of `AnyDBQueryConfig` from the `drizzle-orm` module.
+ */
+type AnyDBQueryConfig = {
+  columns?: Record<string, boolean | undefined> | undefined;
+  where?: AnyRelationsFilter | undefined;
+  extras?: Record<string, SQLWrapper | ((table: Table | View, operators: SQLOperator) => SQLWrapper)> | undefined;
+  with?: Record<string, boolean | AnyDBQueryConfig | undefined> | undefined;
+  orderBy?: Record<string, 'asc' | 'desc' | undefined> | ((table: Table | View, operators: OrderByOperators) => ValueOrArray<AnyColumn | SQL>) | undefined;
+  offset?: number | Placeholder | undefined;
+  limit?: number | Placeholder | undefined;
+};
+/**
+ * Infer the type for the `where` filter of a relational query.
+ *
+ * @example
+ * ```ts
+ * type FooFilter = InferRelationsFilter<typeof db.query.foo>
+ * //   ^? type RelationsFilter<TFields, TSchema>
+ *
+ * const where: FooFilter = {
+ *   bar: { gt: 0 },
+ *   baz: { in: [1, 2, 3] },
+ * }
+ * ```
+ */
+type InferRelationsFilter<T extends {
+  findMany(args?: any): any;
+}> = InferFindManyArgs<T>['where'] extends infer TWhere ? Extract<TWhere, object> : never;
+/**
+ * Infer the type for the `with` clause of a relational query.
+ *
+ * @example
+ * ```ts
+ * type FooRelations = InferRelations<typeof db.query.foo>
+ * //   ^? type { bar: { columns?, with?, … } }
+ * ```
+ */
+type InferRelations<T extends {
+  findMany(args?: any): any;
+}> = InferFindManyArgs<T>['with'] extends infer TWith ? Extract<TWith, object> : never;
+/**
+ * Infer the type for the `orderBy` clause of a relational query.
+ *
+ * @example
+ * ```ts
+ * type FooOrderBy = InferOrderBy<typeof db.query.foo>
+ * //   ^? type { id?: 'asc' | 'desc' | undefined, name?: 'asc' | 'desc' | undefined }
+ * ```
+ */
+type InferOrderBy<T extends {
+  findMany(args?: any): any;
+}> = InferFindManyArgs<T>['orderBy'] extends infer TOrderBy ? Extract<TOrderBy, object> : never;
+/**
+ * Infer the query arguments for a `db.query#findMany` call.
+ *
+ * @example
+ * ```ts
+ * type FooFindManyArgs = InferFindManyArgs<typeof db.query.foo>
+ * //   ^? type { columns, where, orderBy, … }
+ * ```
+ */
+type InferFindManyArgs<T extends {
+  findMany(args?: any): any;
+}> = T extends {
+  findMany(args?: infer TArgs): any;
+} ? Extract<TArgs, object> : never;
+/**
+ * Infer the query arguments for a `db.query#findFirst` call.
+ *
+ * @example
+ * ```ts
+ * type FooFindFirstArgs = InferFindFirstArgs<typeof db.query.foo>
+ * //   ^? type { columns, where, orderBy, … }
+ * ```
+ */
+type InferFindFirstArgs<T extends {
+  findFirst(args?: any): any;
+}> = T extends {
+  findFirst(args?: infer TArgs): any;
+} ? TArgs : never;
+type AnyDialect = {
+  casing: CasingCache;
+  sqlToQuery(sql: SQL): QueryWithTypings;
+};
+/**
+ * Represents the `returning` clause of an `insert`, `update`, or `delete`
+ * query.
+ */
+type ReturningClause<TTable extends Table> = Partial<Record<keyof TTable['_']['columns'] | (string & {}), boolean | SQL | Column>>;
+type OneOrMany<TMode extends 'one' | 'many', T> = TMode extends 'one' ? T : T[];
+/**
+ * Infer the result fields of a `returning` clause.
+ */
+type ReturningResultFields<TMode extends 'one' | 'many', TTable extends Table, TReturning extends ReturningClause<TTable>> = keyof TReturning extends never ? undefined : OneOrMany<TMode, ReturningClause<TTable> extends TReturning ? SelectResultFields<TTable['_']['columns']> : AllFalseValues<TReturning> extends TReturning ? SelectResultFields<Omit<TTable['_']['columns'], keyof TReturning>> : SelectResultFields<OmitNevers<{ [K in keyof TReturning]: TReturning[K] extends infer TValue ? TValue extends true ? TTable['_']['columns'][Extract<K, keyof TTable['_']['columns']>] : TValue extends false | undefined ? never : TValue : never }>>>;
+type OmitNevers<T extends object> = Omit<T, { [K in keyof T]: T[K] extends never ? K : never }[keyof T]>;
+type AllFalseValues<T extends object> = { [K in keyof T]-?: false };
+type ExtractTable<T extends {
+  table: any;
+}, TTable extends Table = Table> = Extract<T['table'], TTable>;
+/**
+ * Represents the `orderBy` clause of a given table.
+ *
+ * Similar to `OrderBy` from the `drizzle-orm` package, but more type-safe.
+ */
+type OrderByClause<TTable extends Table> = { [K in keyof TTable['_']['columns']]?: 'asc' | 'desc' | undefined } | ((table: TTable, operators: OrderByOperators) => ValueOrArray<AnyColumn | SQL>);
+/**
+ * Attempt to coerce a plain object with JavaScript values to a `db.select()`
+ * selection object. Any objects within must be JSON-serializable.
+ */
+type RawFieldsToSelection<T extends Record<string, unknown>> = {} & { [K in keyof T]-?: (T[K] extends infer TValue ? TValue extends AnyColumn<{
+  data: infer TColumnData;
+  driverParam: any;
+  notNull?: infer TNotNull extends boolean;
+}> ? TColumnData | (TNotNull extends false ? null : never) : TValue extends SQLExpression<infer TExpression> ? TExpression : TValue extends AnyQuery ? QueryToResult<TValue, {
+  scalar: true;
+}> : TValue extends object ? TValue extends Date ? string : TValue extends JSONObjectCodable ? TValue : DrizzleTypeError<'Object value must be JSON-serializable'> : TValue : never) extends infer TResult ? [Extract<TResult, DrizzleTypeError<string>>] extends [never] ? SQL.Aliased<Exclude<TResult, undefined>> : Extract<TResult, DrizzleTypeError<string>> : never };
+/**
+ * Coerce a `db.select()` result or a record of SQL expressions to a JSON object
+ * query result.
+ */
+type ToJsonObject<T extends AnySelectQuery | Record<string, unknown>> = T extends AnySelectQuery ? QueryToSQL<T> : T extends Record<string, unknown> ? SQL<SelectResultFields<RawFieldsToSelection<T>>> : never;
+/**
+ * Maps an object type (or array of objects) to a subquery's selection type.
+ */
+type ResultFieldsToSelection<TResult> = (TResult extends undefined ? never : TResult extends readonly (infer TElement)[] ? { [K in keyof TElement]: SQL<TElement[K]> } : { [K in keyof TResult]: SQL<TResult[K]> }) | ([TResult] extends [undefined] ? {} : never);
+type SQLFields<T extends object> = { [K in keyof T]: SQLValue<T[K]> };
+type StrictRequired<T extends object> = { [K in keyof T]-?: Exclude<T[K], undefined> };
+/**
+ * Infer the type of the `insert` or `update` values object.
+ *
+ * This is different from `typeof MyTable.$inferInsert` because it accepts any
+ * `SQLWrapper`, like column references or arbitrary SQL, and those SQL
+ * expressions are strongly typed (e.g. `SQL<number>` instead of
+ * `SQL<unknown>`).
+ */
+type InsertSelectedFields<TTable extends Table, Strict extends boolean = false> = Strict extends true ? SQLFields<StrictRequired<TTable['$inferInsert']>> : SQLFields<TTable['$inferInsert']>;
+type DecodedFields = Record<string, DriverValueDecoder<any, any>>;
+type RowToJson<T extends Subquery | Table | View | SQLWrapper> = T extends Table ? SelectResultFields<T['_']['columns']> : T extends AnySelectQuery ? QueryToResult<T, {
+  single: true;
+  notNull: true;
+}> : T extends SQLWrapper<infer TResult> ? TResult : never;
+//#endregion
+export { AnyDBQueryConfig, AnyDialect, AnyQuery, AnyRelationsFilter, AnySelectQuery, DecodedFields, ExtractTable, InferFindFirstArgs, InferFindManyArgs, InferOrderBy, InferRelations, InferRelationsFilter, InferSQLNull, InsertSelectedFields, OrderByClause, QueryToResult, QueryToSQL, RawFieldsToSelection, ResultFieldsToSelection, ReturningClause, ReturningResultFields, RowToJson, SQLExpression, SQLFields, SQLResult, SQLValue, ToJsonObject };
