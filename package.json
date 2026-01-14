@@ -15,8 +15,7 @@
     "format": "prettier --write .",
     "lint": "tsc-lint",
     "test": "vitest",
-    "prepublishOnly": "pnpm build",
-    "prepare": "pnpm install --ignore-scripts && pnpm build"
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@aleclarson/watchlist": "^0.3.5",
